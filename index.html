@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-us" manifest="pouchdemo.manifest">
+<head>
+	<meta charset="utf-8" />
+	<title>Build a record Taking Application With PouchDB
+</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    
+    <header>
+        <h1>Build a Sensor Report Taking Application With PouchDB</h1>
+        <nav>
+            <!--<a href="http://www.sitepoint.com/building-offline-first-app-pouchdb/" target="_blank">Read the article</a>
+            <a href="https://github.com/webinista/PouchNotes" target="_blank">View the repo</a>-->
+            <a href="http://pouchdb.com/" target="_blank">Download PouchDB</a>
+        </nav>
+    </header>
+    
+    <main>
+        <p class="rel">
+            <button class="clicktarget" type="button" data-action="viewrecordset" data-show="#allrecords" data-hide="section:not(#allrecords)">View Reports</button>
+        	<button class="clicktarget" type="button" data-show="#addrecord" data-hide="section:not(#addrecord)">Add Report</button>
+        </p>
+        
+        <section id="addrecord">
+        <form id="recordform" method="post" data-show="#allrecords" data-hide="#addrecord">
+            <div class="hide" id="buttonwrapper">
+                <button class="clicktarget edit" type="button">Edit Report</button>
+                <button class="clicktarget delete" type="button">Delete Report</button>
+            </div>
+            <p>
+                <input type="hidden" id="_rev" name="_rev" value="">
+                <input type="hidden" id="_id"  name="_id" value="">
+                <label for="recordtitle">Title:</label>
+                <input type="text" id="recordtitle" name="recordtitle" placeholder="Untitled record" value="">
+            </p>
+            <p>
+                <label for="record">Record text:</label>
+                <textarea id="record" name="record" cols="50" rows="5" placeholder="Add record text here. This field is required." required></textarea>
+            </p>
+            <!-- new options -->
+            <p>
+                <label for="origtime">Original Time:</label>
+                <input type="text" id="origtime" name="origtime">
+                <span class="guidance">Original Time of sending</span>
+            </p>            
+            <p>
+                <label for="displacement">Displacement:</label>
+                <input type="number" id="displacement" name="displacement">
+                <span class="guidance">Displament as a number</span>
+            </p>
+            <p>
+                <label for="temp">Temperature:</label>
+                <input type="number" id="temp" name="temp">
+                <span class="guidance">Temperature as a number</span>
+            </p>
+            <p>
+                <label for="hmdt">Humidity:</label>
+                <input type="number" id="hmdt" name="hmdt">
+                <span class="guidance">Humidity percentage as a number</span>
+            </p>
+            <!-- end of new options -->
+            <p>
+                <label for="tags">Tags:</label>
+                <input type="text" id="tags" name="tags">
+                <span class="guidance">Separate tags with a comma</span>
+            </p>
+            
+            <p class="rel">
+                <input type="file" id="attachment" name="attachment" class="abs">
+                <label for="attachment" class="btn">Attachment(s):</label>
+                <span class="filelist"></span>
+    	    </p>
+            
+            <div id="attachments" class="hide">
+            	<h2>Attachments</h2>
+    	    	<ul id="attachmentlist"></ul>
+    	    </div>
+    	    
+            <p>
+                <button type="submit">Save Report</button>
+            </p>
+        </form>
+       </section>
+        
+        <section id="allrecords" class="hide">
+            <h2>Recent reports</h2>
+            <form id="searchrecords" method="get">
+                <p>
+                    <label for="q">Search</label> 
+                    <input type="search" id="q" name="q">
+                    <button type="submit">Search</button>
+                </p>
+            </form>
+            
+            
+            <table id="recordlist">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>    
+        </section>  
+    </main>
+    
+    <div id="syncdialog" class="dialog hide" data-action="close">
+        <div>
+            <button type="button" class="close" data-action="close">Close</button>
+            <h1>Sync-ing data</h1>
+            <div class="progressbar">
+            	<progress max="100"></progress>
+            </div>
+        </div>
+    </div>
+    <div id="errordialog" class="dialog hide" data-action="close">
+        <div>
+            <button type="button" data-action="close"></button>
+            <h1>Error</h1>
+            <div class="msg"></div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Released under an Apache 2.0 license</p>
+    </footer>
+    
+    <script src="js/pouchdb-nightly.min.js"></script>
+    <script src="js/application.js"></script>
+</body>
+</html>
